@@ -8,8 +8,8 @@ const PostContainer = (props) => {
             <Post
                 key={props.post.id}
                 id={props.post.id}
-                title={props.post.title}
-                contents={props.post.contents}
+                text={props.post.text}
+                user_id={props.post.user_id}
                 editPost={props.editPost}
                 deletePost={props.deletePost}
                 singlePost={true}
@@ -21,8 +21,8 @@ const PostContainer = (props) => {
 PostContainer.propTypes = {
     post: PropTypes.shape({
         id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        contents: PropTypes.string.isRequired
+        text: PropTypes.string.isRequired,
+        user_id: PropTypes.number.isRequired
     }).isRequired,
     editPost: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired

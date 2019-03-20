@@ -19,7 +19,7 @@ class PostPage extends Component {
 
     editPost(e) {
         e.preventDefault();
-        history.push(`/${this.props.post.id}/edit`);
+        history.push(`/posts/${this.props.post.id}/edit`);
     }
 
     deletePost(e) {
@@ -40,8 +40,8 @@ PostPage.propTypes = {
     posts: PropTypes.array.isRequired,
     post: PropTypes.shape({
         id: PropTypes.number.isRequired,
-        title: PropTypes.string.isRequired,
-        contents: PropTypes.string.isRequired
+        text: PropTypes.string.isRequired,
+        user_id: PropTypes.number.isRequired
     }).isRequired,
     fetchPost: PropTypes.func.isRequired,
     fetchPosts: PropTypes.func.isRequired,
@@ -50,7 +50,7 @@ PostPage.propTypes = {
 
 const mapStateToProps = state => {
     return {
-        post: state.posts.post ? state.posts.post : {id: -1, title: '', contents: ''},
+        post: state.posts.post ? state.posts.post : {id: -1, text: '', user_id: -1},
         posts: state.posts.posts ? state.posts.posts : []
     }
 }

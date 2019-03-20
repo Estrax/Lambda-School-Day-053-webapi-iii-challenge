@@ -90,8 +90,7 @@ export default (state = initialState, action) => {
         
         case POST_UPDATE_SUCCESS:
             return {
-                ...state,
-                post: action.payload
+                ...state
             }
         
         case POST_UPDATE_FAILURE:

@@ -100,7 +100,7 @@ export function addPost(post){
     return async dispatch => {
         try {
             dispatch(requestAdd(post));
-            const newPost = axios.post(API_URL+`/posts/`, post);
+            const newPost = await axios.post(API_URL+`/posts/`, post);
             if(newPost.status === 201){
                 dispatch(receiveAdd(newPost.data));
                 return history.push(`/posts/${newPost.data.id}`);
@@ -141,7 +141,7 @@ export function updatePost(post){
     return async dispatch => {
         try {
             dispatch(requestUpdate(post));
-            const updatedPost = axios.put(API_URL+`/posts/${post.id}`, post);
+            const updatedPost = await axios.put(API_URL+`/posts/${post.id}`, post);
             if(updatedPost.status === 200){
                 dispatch(receiveUpdate(updatedPost.data));
                 return history.push(`/posts/${post.id}`);
@@ -162,10 +162,10 @@ export function updatePost(post){
         }
     }
 
-    function receiveUpdate(post){
+    function receiveUpdate(id){
         return {
             type: POST_UPDATE_SUCCESS,
-            payload: post
+            payload: id
         }
     }
 
@@ -181,7 +181,7 @@ export function deletePost(id){
     return async dispatch => {
         try {
             dispatch(requestDelete(id));
-            const deletedPost = axios.delete(API_URL+`/posts/${id}`);
+            const deletedPost = await axios.delete(API_URL+`/posts/${id}`);
             if(deletedPost.status === 200){
                 dispatch(receiveDelete(id));;
                 return history.push('/posts/');

@@ -11,13 +11,13 @@ const Posts = (props) => {
         <>
             {props.posts.map((post, i) => 
                 <StyledLink
-                    to={`/${post.id}`}
+                    to={`/posts/${post.id}`}
                     key={post.id}
                 >
                     <Post
                         key={i}
-                        title={post.title}
-                        contents={post.contents}
+                        text={post.text}
+                        user_id={post.user_id}
                         singlePost={false}
                     />
                 </StyledLink>
