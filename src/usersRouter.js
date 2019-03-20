@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../data/helpers/userDb');
+const middleware = require('./dbMiddleware');
 
 router.route('/')
     .get(async (req, res) => {
@@ -11,7 +12,7 @@ router.route('/')
             return res.status(500).json({ error: "The users information could not be retrieved." });
         }
     })
-    .post(async (req, res) => {
+    .post(middleware, async (req, res) => {
         try {
             const {name} = req.body;
             if(!name) return res.status(400).json({ errorMessage: "Please provide name for the user." });
@@ -34,7 +35,7 @@ router.route('/:id')
             return res.status(500).json({ error: "The user information could not be retrieved." });
         }
     })
-    .put(async (req, res) => {
+    .put(middleware, async (req, res) => {
         try {
             const {name} = req.body;
             if(!name) return res.status(400).json({ errorMessage: "Please provide name for the user." });
