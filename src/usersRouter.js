@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../data/helpers/userDb');
-const middleware = require('./dbMiddleware');
+const middleware = require('./routerMiddleware');
 
 router.route('/')
     .get(async (req, res) => {
