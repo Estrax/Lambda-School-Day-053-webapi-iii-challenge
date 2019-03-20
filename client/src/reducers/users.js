@@ -40,7 +40,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: false,
-                posts: action.payload
+                users: action.payload
             }
         
         case USERS_FETCH_FAILURE:
@@ -60,7 +60,7 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isFetching: false,
-                post: action.payload
+                user: action.payload
             }
         
         case USER_FETCH_FAILURE:
@@ -78,7 +78,7 @@ export default (state = initialState, action) => {
         case USER_ADD_SUCCESS:
             return {
                 ...state,
-                post: action.payload
+                user: action.payload
             }
         
         case USER_ADD_FAILURE:
@@ -95,7 +95,7 @@ export default (state = initialState, action) => {
         case USER_UPDATE_SUCCESS:
             return {
                 ...state,
-                post: action.payload
+                user: action.payload
             }
         
         case USER_UPDATE_FAILURE:
@@ -112,7 +112,7 @@ export default (state = initialState, action) => {
         case USER_DELETE_SUCCESS:
             return {
                 ...state,
-                post: null
+                user: null
             }
         
         case USER_DELETE_FAILURE:
