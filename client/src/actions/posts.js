@@ -103,7 +103,7 @@ export function addPost(post){
             const newPost = axios.post(API_URL+`/posts/`, post);
             if(newPost.status === 201){
                 dispatch(receiveAdd(newPost.data));
-                return history.push(`/${newPost.data.id}`);
+                return history.push(`/posts/${newPost.data.id}`);
             }else{
                 dispatch(errorAdd(newPost.data.error));
                 return Promise.reject(newPost.data);
@@ -144,7 +144,7 @@ export function updatePost(post){
             const updatedPost = axios.put(API_URL+`/posts/${post.id}`, post);
             if(updatedPost.status === 200){
                 dispatch(receiveUpdate(updatedPost.data));
-                return history.push(`/${post.id}`);
+                return history.push(`/posts/${post.id}`);
             }else{
                 dispatch(errorUpdate(updatedPost.data.error));
                 return Promise.reject(updatedPost.data);
@@ -184,7 +184,7 @@ export function deletePost(id){
             const deletedPost = axios.delete(API_URL+`/posts/${id}`);
             if(deletedPost.status === 200){
                 dispatch(receiveDelete(id));;
-                return history.push('/');
+                return history.push('/posts/');
             }else{
                 dispatch(errorDelete(deletedPost.data.error));
                 return Promise.reject(deletedPost.data);
