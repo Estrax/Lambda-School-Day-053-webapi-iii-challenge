@@ -30,7 +30,7 @@ router.route('/:id')
         try {
             const post = await db.getById(req.params.id);
             if(post.length === 0) return res.status(404).json({ message: "The post with the specified ID does not exist." });
-            return res.status(200).json(post[0]);
+            return res.status(200).json(post);
         } catch(e) {
             return res.status(500).json({ error: "The post information could not be retrieved." });
         }
@@ -41,7 +41,7 @@ router.route('/:id')
             if(!text || !user_id) return res.status(400).json({ errorMessage: "Please provide text and user ID for the post." });
             const postUpdated = await db.update(req.params.id, { text, user_id })
             if(postUpdated === 0) return res.status(404).json({ message: "The post with the specified ID does not exist." });
-            return res.status(200).json(postUpdated[0]);
+            return res.status(200).json(postUpdated);
         } catch(e) {
             return res.status(500).json({ error: "The post information could not be modified." });
         }
@@ -50,7 +50,7 @@ router.route('/:id')
         try {
             const deletedPost = await db.remove(req.params.id);
             if(deletedPost === 0) return res.status(404).json({ message: "The post with the specified ID does not exist." });
-            return res.status(200).json({...deletedPost[0], removed: true});
+            return res.status(200).json({...deletedPost, removed: true});
         } catch(e) {
             return res.status(500).json({ error: "The post could not be removed" })
         }
