@@ -30,7 +30,7 @@ router.route('/:id')
         try {
             const user = await db.getById(req.params.id);
             if(user.length === 0) return res.status(404).json({ message: "The user with the specified ID does not exist." });
-            return res.status(200).json(user[0]);
+            return res.status(200).json(user);
         } catch(e) {
             return res.status(500).json({ error: "The user information could not be retrieved." });
         }
@@ -39,9 +39,9 @@ router.route('/:id')
         try {
             const {name} = req.body;
             if(!name) return res.status(400).json({ errorMessage: "Please provide name for the user." });
-            const userUpdated = await db.update(req.params.id, { title, contents })
+            const userUpdated = await db.update(req.params.id, { name })
             if(userUpdated === 0) return res.status(404).json({ message: "The user with the specified ID does not exist." });
-            return res.status(200).json(userUpdated[0]);
+            return res.status(200).json(userUpdated);
         } catch(e) {
             return res.status(500).json({ error: "The user information could not be modified." });
         }
@@ -50,7 +50,7 @@ router.route('/:id')
         try {
             const deletedUser = await db.remove(req.params.id);
             if(deletedUser === 0) return res.status(404).json({ message: "The user with the specified ID does not exist." });
-            return res.status(200).json({...deletedUser[0], removed: true});
+            return res.status(200).json({...deletedUser, removed: true});
         } catch(e) {
             return res.status(500).json({ error: "The user could not be removed" })
         }
