@@ -184,7 +184,7 @@ export function deletePost(id){
             const deletedPost = await axios.delete(API_URL+`/posts/${id}`);
             if(deletedPost.status === 200){
                 dispatch(receiveDelete(id));;
-                return history.push('/posts/');
+                return history.push('/');
             }else{
                 dispatch(errorDelete(deletedPost.data.error));
                 return Promise.reject(deletedPost.data);
