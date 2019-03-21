@@ -103,7 +103,7 @@ export function addUser(user){
     return async dispatch => {
         try {
             dispatch(requestAdd(user));
-            const newUser = axios.post(API_URL+`/users/`, user);
+            const newUser = await axios.post(API_URL+`/users/`, user);
             if(newUser.status === 201){
                 dispatch(receiveAdd(newUser.data));
                 return history.push(`/users/${newUser.data.id}`);
@@ -144,7 +144,7 @@ export function updateUser(user){
     return async dispatch => {
         try {
             dispatch(requestUpdate(user));
-            const updatedUser = axios.put(API_URL+`/users/${user.id}`, user);
+            const updatedUser = await axios.put(API_URL+`/users/${user.id}`, {name: user.name});
             if(updatedUser.status === 200){
                 dispatch(receiveUpdate(updatedUser.data));
                 return history.push(`/users/${user.id}`);
@@ -184,7 +184,7 @@ export function deleteUser(id){
     return async dispatch => {
         try {
             dispatch(requestDelete(id));
-            const deletedUser = axios.delete(API_URL+`/users/${id}`);
+            const deletedUser = await axios.delete(API_URL+`/users/${id}`);
             if(deletedUser.status === 200){
                 dispatch(receiveDelete(id));;
                 return history.push('/users/');
@@ -225,9 +225,9 @@ export function fetchUserPosts(id){
     return async dispatch => {
         try {
             dispatch(requestFetchPosts(id));
-            const posts = axios.get(API_URL+`/users/${id}/posts`);
+            const posts = await axios.get(API_URL+`/users/${id}/posts`);
             if(posts.status === 200){
-                return dispatch(receiveFetchPosts(id));
+                return dispatch(receiveFetchPosts(posts.data));
             }else{
                 dispatch(errorFetchPosts(posts.data.error));
                 return Promise.reject(posts.data);

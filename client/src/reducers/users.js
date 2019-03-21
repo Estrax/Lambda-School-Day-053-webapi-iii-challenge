@@ -94,8 +94,7 @@ export default (state = initialState, action) => {
         
         case USER_UPDATE_SUCCESS:
             return {
-                ...state,
-                user: action.payload
+                ...state
             }
         
         case USER_UPDATE_FAILURE:
@@ -129,7 +128,7 @@ export default (state = initialState, action) => {
         case USER_FETCH_POSTS_SUCCESS:
             return {
                 ...state,
-                userPosts: []
+                userPosts: action.payload
             }
         
         case USER_FETCH_POSTS_FAILURE:

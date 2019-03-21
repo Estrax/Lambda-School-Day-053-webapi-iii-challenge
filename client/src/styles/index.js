@@ -53,6 +53,15 @@ export const Title = styled.h1`
     padding: 10px;
 `;
 
+export const PostTitle = styled.h3`
+    text-align: center;
+    color: black;
+    text-decoration: none;
+    margin-bottom: 0;
+    padding: 10px;
+`;
+
+
 export const Contents = styled.p`
     color: black;
     text-decoration: none;

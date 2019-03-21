@@ -3,20 +3,20 @@ import PropTypes from 'prop-types';
 
 import {
     Card,
-    Title,
     Contents,
     Buttons,
     ButtonHalf,
     cardBorder,
-    CardSingle
+    CardSingle,
+    PostTitle
 } from '../styles';
 
 const Post = (props) => {
     return (
         <>
         {props.singlePost && <Card className="card" style={cardBorder}>
-            <Title>{props.text}</Title>
-            <Contents>{props.user_id}</Contents>
+            <PostTitle>{props.text}</PostTitle>
+            <Contents>{props.user.name}</Contents>
             {props.singlePost &&
             <Buttons>
                 <ButtonHalf onClick={props.editPost} className="btn btn-primary">EDIT</ButtonHalf>
@@ -25,8 +25,8 @@ const Post = (props) => {
         </Card>}
 
         {!props.singlePost && <CardSingle className="card" style={cardBorder}>
-            <Title>{props.text}</Title>
-            <Contents>{props.user_id}</Contents>
+            <PostTitle>{props.text}</PostTitle>
+            <Contents>{props.user.name}</Contents>
         </CardSingle>}
         </>
     );
@@ -37,7 +37,11 @@ Post.propTypes = {
     editPost: PropTypes.func,
     deletePost: PropTypes.func,
     text: PropTypes.string.isRequired,
-    user_id: PropTypes.number.isRequired,
+    user_id: PropTypes.number,
+    user: PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired
+    }),
     singlePost: PropTypes.bool.isRequired
 }
 

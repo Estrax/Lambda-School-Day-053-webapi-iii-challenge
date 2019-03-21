@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PostContainer from '../containers/Post';
 import { connect } from 'react-redux';
-import { fetchPost, fetchPosts, deletePost } from '../actions';
+import { fetchPost, fetchPosts, deletePost, fetchUsers } from '../actions';
 import { history } from '../';
 import PropTypes from 'prop-types';
 
@@ -12,9 +12,10 @@ class PostPage extends Component {
         this.editPost = this.editPost.bind(this);
         this.deletePost = this.deletePost.bind(this);
     }
-    componentDidMount() {
-        this.props.fetchPosts();
-        this.props.fetchPost(this.props.match.params.id);
+    async componentDidMount() {
+        await this.props.fetchPosts();
+        await this.props.fetchPost(this.props.match.params.id);
+        await this.props.fetchUsers();
     }
 
     editPost(e) {
@@ -30,7 +31,7 @@ class PostPage extends Component {
     render() {
         return (
             <>
-                {this.props.post && <PostContainer post={this.props.post} editPost={this.editPost} deletePost={this.deletePost} posts={this.props.posts} />}
+                {this.props.post && this.props.users.length > 0 && <PostContainer post={this.props.post} editPost={this.editPost} deletePost={this.deletePost} posts={this.props.posts} users={this.props.users} />}
             </>
         );
     }
@@ -43,6 +44,7 @@ PostPage.propTypes = {
         text: PropTypes.string.isRequired,
         user_id: PropTypes.number.isRequired
     }).isRequired,
+    users: PropTypes.array.isRequired,
     fetchPost: PropTypes.func.isRequired,
     fetchPosts: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired
@@ -51,14 +53,16 @@ PostPage.propTypes = {
 const mapStateToProps = state => {
     return {
         post: state.posts.post ? state.posts.post : {id: -1, text: '', user_id: -1},
-        posts: state.posts.posts ? state.posts.posts : []
+        posts: state.posts.posts ? state.posts.posts : [],
+        users: state.users.users ? state.users.users : []
     }
 }
 
 const mapDispatchToProps = {
     fetchPost,
     deletePost,
-    fetchPosts
+    fetchPosts,
+    fetchUsers
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostPage);

@@ -9,7 +9,7 @@ import {
 const Posts = (props) => {
     return (
         <>
-            {props.posts.map((post, i) => 
+            {props.posts.map((post, i) =>
                 <StyledLink
                     to={`/posts/${post.id}`}
                     key={post.id}
@@ -18,6 +18,7 @@ const Posts = (props) => {
                         key={i}
                         text={post.text}
                         user_id={post.user_id}
+                        user={props.users.filter(user => user.id===post.user_id)[0]}
                         singlePost={false}
                     />
                 </StyledLink>
@@ -27,7 +28,8 @@ const Posts = (props) => {
 }
 
 Posts.propTypes = {
-    posts: PropTypes.array.isRequired
+    posts: PropTypes.array.isRequired,
+    users: PropTypes.array.isRequired
 }
 
 export default Posts;

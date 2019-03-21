@@ -10,6 +10,7 @@ const PostContainer = (props) => {
                 id={props.post.id}
                 text={props.post.text}
                 user_id={props.post.user_id}
+                user={props.users.length > 0 ? props.users.filter(user => user.id===props.post.user_id)[0] ? props.users.filter(user => user.id===props.post.user_id)[0] : {id: -1, name: ''} : {id: -1, name: ''}}
                 editPost={props.editPost}
                 deletePost={props.deletePost}
                 singlePost={true}
@@ -24,6 +25,7 @@ PostContainer.propTypes = {
         text: PropTypes.string.isRequired,
         user_id: PropTypes.number.isRequired
     }).isRequired,
+    users: PropTypes.array.isRequired,
     editPost: PropTypes.func.isRequired,
     deletePost: PropTypes.func.isRequired
 }
