@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import {
     Card,
@@ -16,7 +17,7 @@ const Post = (props) => {
         <>
         {props.singlePost && <Card className="card" style={cardBorder}>
             <PostTitle>{props.text}</PostTitle>
-            <Contents>{props.user.name}</Contents>
+            <Contents><Link to={`/users/${props.user.id}`}>{props.user.name}</Link></Contents>
             {props.singlePost &&
             <Buttons>
                 <ButtonHalf onClick={props.editPost} className="btn btn-primary">EDIT</ButtonHalf>

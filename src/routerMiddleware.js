@@ -6,6 +6,6 @@ module.exports = function (req, res, next){
             res.status(400).json({ error: 'User name is not capitalized!'});
         }
     }else{
-        res.status(400).json({ error: 'You need to pass name to this user!'})
+        res.status(400).json({ error: 'You need to pass name to this user!'});
     }
 }

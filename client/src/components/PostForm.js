@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { addPost, updatePost, fetchPost } from '../actions';
+import { addPost, updatePost, fetchPost, fetchUsers } from '../actions';
 import {
     SubmitBtn,
     Title,
@@ -30,6 +30,7 @@ class PostForm extends Component {
                 });
             });
         }
+        this.props.fetchUsers();
     }
 
     handleChange(e) {
@@ -59,7 +60,7 @@ class PostForm extends Component {
     render() {
         return (
             <>
-                <FormComponent onSubmit={this.props.addForm ? this.addPost : this.updatePost} className="card">
+                {this.props.users.length > 0 && <FormComponent onSubmit={this.props.addForm ? this.addPost : this.updatePost} className="card">
                     <Title>
                         {this.props.addForm && "Add post"}
                         {!this.props.addForm && "Update post"}
@@ -73,20 +74,21 @@ class PostForm extends Component {
                         value={this.state.text}
                     />
 
-                    <input
-                        type="number"
+                    <select
                         name="user_id"
-                        placeholder="Post user id"
                         onChange={this.handleChange}
-                        value={this.state.user_id}
-                    />
+                        value={this.state.user_id !== -1 ? this.state.user_id : ""}
+                    >
+                        <option value="" disabled>Select user</option>
+                        {this.props.users.map(user => <option key={user.id} value={user.id}>{user.name}</option>)}
+                    </select>
 
                     <SubmitBtn
                         type="submit"
                         name="submit"
                         className="btn btn-primary"
                     />
-                </FormComponent>
+                </FormComponent>}
             </>
         );
     }
@@ -105,13 +107,15 @@ const mapStateToProps = state => {
     return {
         text: state.posts.post ? state.posts.post.text : '',
         user_id: state.posts.post ? state.posts.post.user_id : -1,
+        users: state.users.users ? state.users.users : []
     }
 }
 
 const mapDispatchToProps = {
     addPost,
     updatePost,
-    fetchPost
+    fetchPost,
+    fetchUsers
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostForm);
